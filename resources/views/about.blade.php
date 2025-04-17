@@ -12,7 +12,7 @@
                 <h2>{{ $user->username }}.<span class="pink">profile</span></h2>
             </div>
             <p class="section-description">
-                Hello
+                Exploring pixels and code, one quality click at a time.
             </p>
             <div class="profile-container">
                 <div class="me-icon-container">
@@ -75,47 +75,55 @@
         </section>
         <section id="education-experience">
             <div id="education" class="education-experience-container">
-                <h3>Education</h3>
-                @foreach ($educations as $education)
-                    <div class="education-experience-card">
-                        <div class="card-info">
-                            <h4 class="green">{{ $education->education_degree }}</h4>
-                            <p>{{ $education->education_location }}</p>
+                <h3 class="section-title">Education</h3>
+                <div class="education-experience-grid">
+                    @foreach ($educations as $education)
+                        <div class="education-card">
+                            <div class="card-header">
+                                <h4 class="card-title">{{ $education->education_degree }}</h4>
+                                <p class="card-date">{{ $education->education_location }}</p>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-subtitle">Achievements</h5>
+                                @php
+                                    $achievements = explode(',', $education->education_achievements);
+                                @endphp
+                                @foreach ($achievements as $achievement)
+                                    <p class="card-text">{{ $achievement }}</p>
+                                @endforeach
+                            </div>
                         </div>
-                        <div class="card-description">
-                            <h5>Achievements</h5>
-                            @php
-                                $achievements = explode(',', $education->education_achievements);
-                            @endphp
-                            @foreach ($achievements as $achievement)
-                                <p>{{ $achievement }}</p>
-                            @endforeach
-                        </div>
-                    </div>
-                @endforeach
+                    @endforeach
+                </div>
             </div>
+        
             <div id="experience" class="education-experience-container">
-                <h3>Experience</h3>
-                @foreach ($experiences as $experience)
-                    <div class="education-experience-card">
-                        <div class="card-info">
-                            <h4 class="green">{{ $experience->role }}</h4>
-                            <p class="date">{{ $experience->start_date }} - {{ $experience->end_date }}</p>
-                            <p><a href="{{ $experience->company_url }}">{{ $experience->company }}</a><br>
-                                {{ $experience->job_type }}</p>
+                <h3 class="section-title">Experience</h3>
+                <div class="education-experience-grid">
+                    @foreach ($experiences as $experience)
+                        <div class="experience-card">
+                            <div class="card-header">
+                                <h4 class="card-title">{{ $experience->role }}</h4>
+                                <p class="card-date">{{ $experience->start_date }} - {{ $experience->end_date }}</p>
+                                <p class="card-company">
+                                    <a href="{{ $experience->company_url }}" class="card-link" target="_blank" rel="noopener noreferrer">
+                                        {{ $experience->company }}
+                                    </a>
+                                </p>
+                            </div>
+                            <div class="card-body">
+                                @foreach ($experience->tasks as $task)
+                                    <h5 class="card-subtitle">{{ $task->title }}</h5>
+                                    <p class="card-text">{{ $task->description }}.</p>
+                                @endforeach
+                            </div>
                         </div>
-                        <div class="card-description">
-                            @foreach ($experience->tasks as $task)
-                                <h5>{{ $task->title }}</h5>
-                                <p>{{ $task->description }}.</p>
-                            @endforeach
-                        </div>
-                    </div>
-                @endforeach
-
-        </section>
+                    @endforeach
+                </div>
+            </div>
+        </section>        
         <section id="tech-stack">
-            <h3>Tech Stack</h3>
+            <h3 class="section-title1">Tech Stack</h3>
             <div class="tech-stack-container">
                 @foreach ($techstasks as $item)
                     <a href="{{ $item->url }}">
@@ -129,7 +137,7 @@
             </div>
         </section>
         <section id="all-social-media">
-            <h3>Contact</h3>
+            <h3 class="section-title2">Contact</h3>
             <p class="section-description">
                 Here are all the places you can find me on the
                 internet.
